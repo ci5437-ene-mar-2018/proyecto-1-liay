@@ -58,6 +58,12 @@ abstractor:
 %.idaStar: %.c ../../Global/idaStar.cpp priority_queue.hpp node.hpp
 	$(CXX) $(OPT) ../../Global/idaStar.cpp -include $< -include towers-of-hanoi-4-18_PDB.cpp -o $@
 
+%.aStar: %.c ../../Global/aStar.cpp priority_queue.hpp node.hpp
+	$(CXX) $(OPT) ../../Global/aStar.cpp -include $< -include towers-of-hanoi-4-18_PDB.cpp -o $@
+
+%.bfs: %.c ../../Global/bfs.cpp priority_queue.hpp node.hpp
+	$(CXX) $(OPT) -std=c++11 ../../Global/bfs.cpp -include $< -o $@
+
 .PHONY: clean
 clean:
 	rm -fr *.succ *.dist *.distSummary *.dist_pdb psvn2c_core.c psvn2c_state_map.c psvn2c_abstraction.c abstractor *.dSYM *.o *~
