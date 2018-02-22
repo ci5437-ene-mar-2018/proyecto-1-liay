@@ -10,7 +10,7 @@ void printRule(int t1, int t2) {
 	for (int i=0; i<sqSize; i++) {
 
 		if (i == t1) {
-			printf("b ");
+			printf("0 ");
 		} else if (i == t2) {
 			printf("X ");
 		} else {
@@ -23,7 +23,7 @@ void printRule(int t1, int t2) {
 	for (int i=0; i<sqSize; i++) {
 
 		if (i == t2) {
-			printf("b ");
+			printf("0 ");
 		} else if (i == t1) {
 			printf("X ");
 		} else {
@@ -42,9 +42,9 @@ int main (int argc, char *argv[]) {
 	size = atoi(argv[1]);
 	sqSize = size*size;
 
-	printf("DOMAIN tile %d\n\tB ", sqSize);
+	printf("DOMAIN tile %d\n\t", sqSize);
 
-	for (int i=1; i<sqSize; i++) {
+	for (int i=0; i<sqSize; i++) {
 		printf("%d ", i);
 	}
 
