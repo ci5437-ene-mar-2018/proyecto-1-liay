@@ -45,7 +45,7 @@ abstractor:
 	$(CXX) $(OPT) ../../psvn/src/abstractor.cpp ../../psvn/src/psvn.cpp -o $@
 
 %.pdb: abstractor
-	@rm -f `dirname $*`_`basename $*`.{abst,pdb,psvn}
+	@rm -f `dirname $*`_`basename $*`.{abst,pdb,psvn}n=0
 	./abstractor `dirname $*`.psvn `dirname $*`_`basename $*` < `basename $*`.txt
 	make `dirname $*`_`basename $*`.distSummary
 	echo Calculating `dirname $*`_`basename $*.pdb` ...
@@ -57,6 +57,12 @@ abstractor:
 
 %.idaStar: %.c ../Global/idaStar.cpp priority_queue.hpp node.hpp
 	$(CXX) $(OPT) ../Global/idaStar.cpp -include $< -include rubiks-cube_PDB.cpp -o $@
+
+%.aStar: %.c ../Global/aStar.cpp priority_queue.hpp node.hpp
+	$(CXX) $(OPT) ../Global/aStar.cpp -include $< -include rubiks-cube_PDB.cpp -o $@
+
+%.bfs: %.c ../Global/bfs.cpp priority_queue.hpp node.hpp
+	$(CXX) $(OPT) -std=c++11 ../Global/bfs.cpp -include $< -o $@
 
 .PHONY: clean
 clean:
