@@ -1,9 +1,15 @@
 /*
-This program computes the distance from the given start state (i.e. the cost of the least-cost path from the start)
-of every state that can be reached from the start state.
-It does this by executing Dijktra's algorithm forwards from the start state.
+idaStar.cpp
+Universidad Simon Bolivar
+CI5437: Inteligencia Artificial I
 
-Copyright (C) 2013 by the PSVN Research Group, University of Alberta
+Autores: 
+  - Yarima Luciani 13-10770
+  - Lautaro Villalon 12-10427
+
+Equipo: LIAY
+Prof. Blai Bonet
+Ene-Mar 2018
 */
 
 #include <vector>
@@ -11,30 +17,16 @@ Copyright (C) 2013 by the PSVN Research Group, University of Alberta
 #include "node.hpp"
 #include <stdbool.h>
 #include <algorithm>
+#include <fstream>
+#include <string>
+#include <time.h>
 
 #define  MAX_LINE_LENGTH 999
 
-// GLOBAL VARIABLE(S) FOR STATISTICS
-    int64_t nodes_expanded;
-/*
-int manhattanDistance(state_t *state)
-{
-    int distancia = 0;
-    for (int i=0; i<3; i++) {
-        for (int j=0; j<3; j++) {
-            if (tablero[i][j] != 0) {
-                distancia += Math.abs(((tablero[i][j]-1)/3)-i) + Math.abs(((tablero[i][j]-1)%3)-j);
-            }
-        }
-    }
-    return distancia;
-}
+using namespace std;
 
-unsigned heuristic(state_t *state) {
-    return 0;
-}
+int64_t nodes_expanded;
 
-*/
 Node* dfsVisit(Node *n, unsigned bound, unsigned *nextBound, const int history) {
     unsigned f = (*n).g + heuristic((*n).state); 
     unsigned t = INT_MAX;
@@ -47,11 +39,6 @@ Node* dfsVisit(Node *n, unsigned bound, unsigned *nextBound, const int history) 
     if (f > bound) {
         *nextBound = f;
         return NULL;
-    }
-
-    if((*n).parent != NULL) {
-        print_state(stdout, &(*(*n).parent).state);
-        printf("\n");
     }
 
     if (is_goal(&(*n).state)) {
@@ -103,6 +90,73 @@ Node idaStar(state_t *start)
 
 }
 
+// TEST FILE READER
+int main(int argc, char **argv)
+{
+    char str[MAX_LINE_LENGTH + 1];
+    string line;
+    int d;
+    ssize_t nchars;
+    float runTime;
+    state_t start;
+    ifstream file;
+    clock_t startTime, endTime, timeSpan;
+
+
+    loadPDB();
+
+
+    printf("Please enter a test file followed by ENTER: ");
+    if (fgets(str, sizeof str, stdin) == NULL) {
+        printf("Error: empty input line.\n");
+        return 0;
+    }
+
+    str[strlen(str)-1] = '\0';
+
+    file.open(str);
+
+    if (!file.is_open()) {
+        printf("Error: Invalid filename:%s\n", str);
+        return -1;
+    }
+
+    printf("Instance \t\t\t Solved \t Time \t Nodes Expanded \t Distance\t\n");
+    printf("----------------------------------------------------------------\n");
+    
+    while (!file.eof()) {
+        getline(file, line);
+
+        nchars = read_state(line.c_str(), &start);
+        if (nchars <= 0) {
+            printf("Error: invalid state entered.\n");
+            continue;
+        }
+
+        startTime = clock();
+        nodes_expanded = 0; 
+
+        // A STAR BEGINS 
+        Node goal = idaStar(&start);
+        // A STAR ENDS
+
+        endTime = clock();
+
+        timeSpan = endTime - startTime;
+
+        runTime = (timeSpan / (double) CLOCKS_PER_SEC) / 60;
+
+        printf("%s \t True \t %f \t %ld \t %d\n", line.c_str(), runTime, nodes_expanded, goal.g);
+        
+    }
+
+    file.close();
+
+    return 0;
+}
+
+
+/* STATE READER
 int main(int argc, char **argv)
 {
     char str[MAX_LINE_LENGTH + 1] ;
@@ -112,7 +166,7 @@ int main(int argc, char **argv)
 
     loadPDB();
 
-// READ THE START STATE
+
     printf("Please enter a state followed by ENTER: ");
     if (fgets(str, sizeof str, stdin) == NULL) {
         printf("Error: empty input line.\n");
@@ -128,7 +182,7 @@ int main(int argc, char **argv)
     print_state(stdout, &start);
     printf("\n");
 
-    nodes_expanded = 0;  // initialize global variable
+    nodes_expanded = 0;  
     Node goal = idaStar(&start);
     printf("nodes expanded = %lu, solution state:\n", nodes_expanded);
     print_state(stdout, &(goal).state);
@@ -136,3 +190,5 @@ int main(int argc, char **argv)
     printf("\n");
     return 0;
 }
+
+*/
