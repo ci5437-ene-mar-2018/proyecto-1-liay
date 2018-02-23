@@ -29,7 +29,7 @@ node.hpp:
 	cp ../../Global/node.hpp ./node.hpp
 
 %.gen: %.c ../../../psvn/global/generator.cc
-	$(CC) $(OPT) ../../../psvn/global/generator.cc -include $< -o $@
+	$(CXX) $(OPT) ../../../psvn/global/generator.cc -include $< -o $@
 	rm -f $*.c
 
 %.succ: %.c ../../../psvn/global/succ.c
