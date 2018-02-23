@@ -35,8 +35,9 @@ int bfs(state_t *goal, int pruning)
 
     /* add goal state */
     open.Add(0, 0, *goal);
-    if (pruning)
+    if (pruning){
         state_map_add( historyMap, goal, history );
+    }
 
     depth = open.CurrentPriority();
     
@@ -66,17 +67,20 @@ int bfs(state_t *goal, int pruning)
 
         init_bwd_iter( &iter, &state );
         while( ( ruleid = next_ruleid( &iter ) ) >= 0 ) {
-            apply_bwd_rule( ruleid, &state, &child );
 
             if (pruning) {
 
-                if( !fwd_rule_valid_for_history( history, ruleid ) )
+                if( !bwd_rule_valid_for_history( history, ruleid ) )
                     continue;
 
-                c_history = next_fwd_history( history, ruleid );
+                apply_bwd_rule( ruleid, &state, &child );
+
+                c_history = next_bwd_history( history, ruleid );
                 state_map_add( historyMap, &child, c_history );
 
 
+            } else {
+                apply_bwd_rule( ruleid, &state, &child );
             }
 
             int child_g = depth + get_bwd_rule_cost( ruleid );
