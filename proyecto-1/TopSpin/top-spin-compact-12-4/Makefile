@@ -5,7 +5,7 @@
 CC = gcc
 CXX = g++
 OPT = -Wall -O3 -Wno-unused-function -Wno-unused-variable
-PSVNOPT = --state_map --backward_moves --fwd_history_len=3 --bwd_history_len=0
+PSVNOPT = --state_map --backward_moves --fwd_history_len=2 --bwd_history_len=2
 
 psvn2c_core.c:
 	cp ../../../psvn/src/psvn2c_core.c ./psvn2c_core.c
@@ -28,6 +28,9 @@ priority_queue.hpp:
 node.hpp:
 	cp ../../Global/node.hpp ./node.hpp
 
+%.gen: %.c ../../../psvn/global/generator.cc
+	$(CC) $(OPT) ../../../psvn/global/generator.cc -include $< -o $@
+	rm -f $*.c
 
 %.succ: %.c ../../../psvn/global/succ.c
 	$(CC) $(OPT) ../../../psvn/global/succ.c -include $< -o $@
@@ -60,6 +63,10 @@ abstractor:
 
 %.aStar: %.c ../../Global/aStar.cpp priority_queue.hpp node.hpp
 	$(CXX) $(OPT) ../../Global/aStar.cpp -include $< -include top-spin-compact-12-4_PDB.cpp -o $@
+
+%.bfs: %.c ../../Global/bfs.cpp priority_queue.hpp node.hpp
+	$(CXX) $(OPT) -std=c++11 ../../Global/bfs.cpp -include $< -o $@
+
 
 .PHONY: clean
 clean:
