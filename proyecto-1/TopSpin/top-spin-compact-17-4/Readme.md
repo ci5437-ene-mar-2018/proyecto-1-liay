@@ -53,7 +53,7 @@ make -f makeBFS.mk top-spin-compact-17-4.bfs para compilarlo
 
 - Generar casos de prueba utilizando el generador incluido en PSVN. Para esto debe utilizar los siguientes comandos:
 
-make -f makeSearch.mk top-spin-compact-17-4.gen para compilarlo
+make -f makeBFS.mk top-spin-compact-17-4.gen para compilarlo
 
 ./top-spin-compact-17-4.gen para correrlo con los argumentos:
 

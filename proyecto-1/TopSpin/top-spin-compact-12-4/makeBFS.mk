@@ -28,6 +28,10 @@ priority_queue.hpp:
 node.hpp:
 	cp ../../Global/node.hpp ./node.hpp
 
+%.gen: %.c ../../../psvn/global/generator.cc
+	$(CXX) $(OPT) ../../../psvn/global/generator.cc -include $< -o $@
+	rm -f $*.c
+
 abstractor:
 	$(CXX) $(OPT) ../../../psvn/src/abstractor.cpp ../../../psvn/src/psvn.cpp -o $@
 
