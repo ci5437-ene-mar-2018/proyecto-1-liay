@@ -112,8 +112,8 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    printf("Instance\tSolved\tTime\tNodes Expanded\tDistance\t\n");
-    printf("----------------------------------------------------------------\n");
+    printf("Instance \t\t\t Solved   Time \t   Nodes Expanded   Distance\t\n");
+    printf("-----------------------------------------------------------------------------\n");
     
     while (!file.eof()) {
         getline(file, line);
@@ -137,9 +137,9 @@ int main(int argc, char **argv)
         runTime = (timeSpan / (double) CLOCKS_PER_SEC) / 60;
 
         if (d < 0) {
-            printf("%s \t False \t %f \t %ld \t %d\n", line.c_str(), runTime, nodes_expanded, d);
+            printf("%s \t False \t %f \t %ld \t\t %d\n", line.c_str(), runTime, nodes_expanded, d);
         } else {
-            printf("%s \t True \t %f \t %ld \t %d\n", line.c_str(), runTime, nodes_expanded, d);
+            printf("%s \t True \t %f \t %ld \t\t %d\n", line.c_str(), runTime, nodes_expanded, d);
         }
         
     }
