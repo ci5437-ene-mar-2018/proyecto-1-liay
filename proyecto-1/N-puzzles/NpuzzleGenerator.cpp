@@ -1,3 +1,17 @@
+/*
+NpuzzleGenerator.cpp
+Universidad Simon Bolivar
+CI5437: Inteligencia Artificial I
+
+Autores: 
+  - Yarima Luciani 13-10770
+  - Lautaro Villalon 12-10427
+
+Equipo: LIAY
+Prof. Blai Bonet
+Ene-Mar 2018
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

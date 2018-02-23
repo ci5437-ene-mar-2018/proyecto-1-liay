@@ -53,7 +53,7 @@ make -f makeBFS.mk towers-of-hanoi-4-12.bfs para compilarlo
 
 - Generar casos de prueba utilizando el generador incluido en PSVN. Para esto debe utilizar los siguientes comandos:
 
-make -f makeSearch.mk towers-of-hanoi-4-12.gen para compilarlo
+make -f makeBFS.mk towers-of-hanoi-4-12.gen para compilarlo
 
 ./towers-of-hanoi-4-12.gen para correrlo con los argumentos:
 
