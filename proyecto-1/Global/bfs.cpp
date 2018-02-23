@@ -1,3 +1,17 @@
+/*
+bfs.cpp
+Universidad Simon Bolivar
+CI5437: Inteligencia Artificial I
+
+Autores: 
+  - Yarima Luciani 13-10770
+  - Lautaro Villalon 12-10427
+
+Equipo: LIAY
+Prof. Blai Bonet
+Ene-Mar 2018
+*/
+
 #include <vector>
 #include "priority_queue.hpp"
 #include <stdbool.h>
@@ -35,7 +49,7 @@ int bfs(state_t *goal, int pruning)
             depth = open.CurrentPriority();
             nodesPerDepth[depth] = 1;
         } else {
-            b_factor = nodesPerDepth[depth]/nodesPerDepth[depth-1];
+            b_factor = (float) nodesPerDepth[depth]/ (float) nodesPerDepth[depth-1];
             printf("%f\n%d\t%d\t", b_factor, depth, nodesPerDepth[depth]);
             depth = open.CurrentPriority();
             nodesPerDepth[depth] = 1;
