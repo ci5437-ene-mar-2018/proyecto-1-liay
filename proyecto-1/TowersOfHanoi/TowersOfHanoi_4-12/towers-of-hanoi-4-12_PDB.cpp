@@ -6,6 +6,7 @@ abstraction_t *abs1;
 abstraction_t *abs2;
 state_t abs_state1;
 state_t abs_state2;
+
 unsigned maximum;
 
 void loadPDB(){
